@@ -12,7 +12,34 @@ import java.util.concurrent.TimeoutException;
 public class Worker01 {
 
     public static void main(String[] args) throws IOException, TimeoutException {
-        Channel channel = RabbitUtils.getChannel();
+        new Thread(() -> {
+            Channel channel = null;
+            try {
+                channel = RabbitUtils.getChannel();
+                channel.basicConsume(RabbitUtils.QUEUE_NAME, true,
+                        (consumerTag, message) -> System.out.println("C1接收到的消息：" + new String(message.getBody())),
+                        consumerTag -> System.out.println(consumerTag + "消息取消"));
+            } catch (IOException | TimeoutException e) {
+                throw new RuntimeException(e);
+            }
 
+            System.out.println("C1等待接受消息....");
+        }).start();
+
+        new Thread(() -> {
+            Channel channel = null;
+            try {
+                channel = RabbitUtils.getChannel();
+                channel.basicConsume(RabbitUtils.QUEUE_NAME, true,
+                        (consumerTag, message) -> System.out.println("C2接收到的消息：" + new String(message.getBody())),
+                        consumerTag -> System.out.println(consumerTag + "消息取消"));
+            } catch (IOException | TimeoutException e) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println("C2等待接受消息....");
+
+
+        }).start();
     }
 }
