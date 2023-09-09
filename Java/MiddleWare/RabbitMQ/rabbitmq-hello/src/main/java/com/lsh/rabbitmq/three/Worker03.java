@@ -18,6 +18,12 @@ public class Worker03 {
         Channel channel = RabbitUtils.getChannel();
         System.out.println("C1等待接受消息处理时间较短");
 
+        // 设置不公平分发 为1的时候则会采用能者多劳的方式
+        // int prefetchCount = 1;
+        // 设置预取值
+        int prefetchCount = 2;
+        channel.basicQos(prefetchCount);
+
         // 采用手动应答
         channel.basicConsume(TASK_QUEUE_NAME, false, ((consumerTag, message) -> {
 
