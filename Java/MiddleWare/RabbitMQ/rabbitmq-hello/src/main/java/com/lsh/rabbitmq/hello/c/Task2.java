@@ -1,4 +1,4 @@
-package com.lsh.rabbitmq.three;
+package com.lsh.rabbitmq.hello.c;
 
 import com.lsh.rabbitmq.utils.RabbitUtils;
 import com.rabbitmq.client.Channel;
