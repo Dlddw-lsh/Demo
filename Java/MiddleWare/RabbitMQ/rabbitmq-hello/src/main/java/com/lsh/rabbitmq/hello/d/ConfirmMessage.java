@@ -54,7 +54,7 @@ public class ConfirmMessage {
     }
 
     // 批量发布确认
-    public static void publishMessageBatch() throws Exception {
+    public static void publishMessageBatch(String s1, String s2) throws Exception {
         Channel channel = RabbitUtils.getChannel();
         // 队列的声明
         String queueName = UUID.randomUUID().toString();

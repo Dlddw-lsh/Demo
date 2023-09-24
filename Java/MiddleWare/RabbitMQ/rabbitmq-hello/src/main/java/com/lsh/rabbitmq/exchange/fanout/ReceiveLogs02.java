@@ -1,4 +1,4 @@
-package com.lsh.rabbitmq.exchange.a;
+package com.lsh.rabbitmq.exchange.fanout;
 
 import com.lsh.rabbitmq.utils.RabbitUtils;
 import com.rabbitmq.client.Channel;
@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 
 /**
- * 消息接收
+ *
  */
 public class ReceiveLogs02 {
 
