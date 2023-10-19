@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 StudyProject/
+venv/
 
 ### STS ###
 .apt_generated
