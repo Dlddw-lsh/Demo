@@ -1,4 +1,4 @@
-package com.lsh.rabbitmq.exchange.deadQueuq;
+package com.lsh.rabbitmq.exchange.deadQueue;
 
 import com.lsh.rabbitmq.utils.RabbitUtils;
 import com.rabbitmq.client.BuiltinExchangeType;
@@ -31,11 +31,14 @@ public class Consumer01 {
         // 声明普通队列
         Map<String, Object> arguments = new HashMap<>();
         // 过期时间
-        arguments.put("x-message-ttl", 100000);
+//        arguments.put("x-message-ttl", 100000);
         // 正常队列设置死信交换机
         arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
         // 正常队列设置死信RoutingKey
         arguments.put("x-dead-letter-routing-key", "lisi");
+        // 设置正常队列的长度的限制
+//        arguments.put("x-max-length", 6);
+
         channel.queueDeclare(NORMAL_QUEUE, false, false, false, arguments);
         // 声明死信队列
         channel.queueDeclare(DEAD_QUEUE, false, false, false, null);
@@ -45,8 +48,17 @@ public class Consumer01 {
         // 绑定死信的交换机与队列
         channel.queueBind(DEAD_QUEUE, DEAD_EXCHANGE, "lisi");
         System.out.println("等待接受消息");
-        channel.basicConsume(NORMAL_QUEUE, true, (consumerTag, message) -> {
-            System.out.println("Consumer01接受的消息" + new String(message.getBody(), StandardCharsets.UTF_8));
+        // 开启收到应答
+        channel.basicConsume(NORMAL_QUEUE, false, (consumerTag, message) -> {
+            String msg = new String(message.getBody());
+            if (msg.equals("info5")) {
+                System.out.println("Consumer01接收到的消息是：" + msg + " : 此消息是被C1拒绝的");
+                channel.basicReject(message.getEnvelope().getDeliveryTag(), false);
+            } else {
+                System.out.println("Consumer01接受的消息" + new String(message.getBody(), StandardCharsets.UTF_8));
+                channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
+
+            }
         }, consumerTag -> {
         });
     }

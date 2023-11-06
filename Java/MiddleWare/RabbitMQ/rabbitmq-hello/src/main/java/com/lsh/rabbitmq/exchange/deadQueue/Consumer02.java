@@ -1,12 +1,9 @@
-package com.lsh.rabbitmq.exchange.deadQueuq;
+package com.lsh.rabbitmq.exchange.deadQueue;
 
 import com.lsh.rabbitmq.utils.RabbitUtils;
-import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author lsh

@@ -1,7 +1,6 @@
-package com.lsh.rabbitmq.exchange.deadQueuq;
+package com.lsh.rabbitmq.exchange.deadQueue;
 
 import com.lsh.rabbitmq.utils.RabbitUtils;
-import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 
 import java.nio.charset.StandardCharsets;
@@ -18,12 +17,12 @@ public class Producer {
         Channel channel = RabbitUtils.getChannel();
 
         // 死信消息 设置过期时间为单位是ms
-        AMQP.BasicProperties properties = new AMQP.BasicProperties()
-                .builder().expiration("10000").build();
+//        AMQP.BasicProperties properties = new AMQP.BasicProperties()
+//                .builder().expiration("10000").build();
         for (int i = 1; i <= 10; i++) {
             String message = "info" + i;
             channel.basicPublish(NORMAL_EXCHANGE, "zhangsan",
-                    properties, message.getBytes(StandardCharsets.UTF_8));
+                    null, message.getBytes(StandardCharsets.UTF_8));
         }
     }
 }
