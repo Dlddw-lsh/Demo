@@ -1,7 +1,5 @@
-package org.example;
+package org.lsh;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.junit.Test;
 
 import java.util.ArrayList;
