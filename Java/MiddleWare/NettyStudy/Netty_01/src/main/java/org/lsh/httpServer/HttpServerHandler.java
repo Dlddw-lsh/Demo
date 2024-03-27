@@ -21,7 +21,6 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         // 判断msg是不是httpRequest请求
         if (msg instanceof HttpRequest) {
-
             System.out.println("pipeline: " + ctx.pipeline().hashCode());
             System.out.println("HttpServerHandler: " + this.hashCode());
 
