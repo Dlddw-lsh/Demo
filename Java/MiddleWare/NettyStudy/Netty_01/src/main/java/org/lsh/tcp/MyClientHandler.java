@@ -29,4 +29,5 @@ public class MyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         System.out.println("客户端接收到的消息=" + message);
         System.out.println("客户端接收到的数量为" + (++count));
     }
+
 }
