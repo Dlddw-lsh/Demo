@@ -1,4 +1,4 @@
-package org.lsh.tcp;
+package org.lsh.protocolTcp;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

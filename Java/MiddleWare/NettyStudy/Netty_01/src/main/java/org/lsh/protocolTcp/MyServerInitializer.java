@@ -1,4 +1,4 @@
-package org.lsh.tcp;
+package org.lsh.protocolTcp;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -8,6 +8,9 @@ public class MyServerInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
+
+        pipeline.addLast(new MyMessageDecoder());
+        pipeline.addLast(new MyMessageEncoder());
         pipeline.addLast(new MyServerHandler());
     }
 }
